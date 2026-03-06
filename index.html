@@ -4,375 +4,689 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Workout Tracker</title>
-
 <style>
-:root{
---bg:#0f0f10;
---card:#1b1b1e;
---card2:#252528;
---text:#fff;
---muted:rgba(255,255,255,.68);
---border:rgba(255,255,255,.10);
---accent:#ff7a00;
---danger:#ff4d4d;
---shadow:0 10px 30px rgba(0,0,0,.35);
-}
-*{box-sizing:border-box}
+  :root{
+    --bg:#0f0f10;
+    --card:#1b1b1e;
+    --card2:#252528;
+    --text:#fff;
+    --muted:rgba(255,255,255,.68);
+    --border:rgba(255,255,255,.10);
+    --accent:#ff7a00;
+    --danger:#ff4d4d;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    padding:18px;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;
+  }
+  .container{max-width:880px;margin:0 auto}
+  h1{margin:0 0 14px;font-size:34px;font-weight:900}
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+  }
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .spacer{flex:1}
+  .muted{color:var(--muted);font-size:13px}
+  .title{font-size:18px;font-weight:900;margin:0 0 10px}
+  select{
+    width:100%;
+    background:var(--card2);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:10px 12px;
+    min-height:42px;
+    outline:none;
+  }
+  .btn{
+    min-height:42px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#2f2f33;
+    color:var(--text);
+    cursor:pointer;
+    font-weight:500; /* НЕ жирная */
+    user-select:none;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn.accent{
+    background:var(--accent);
+    border-color:transparent;
+    color:#111;
+    font-weight:600; /* аккуратно */
+  }
+  .btn.ghost{background:transparent}
+  .btn.danger{
+    background:transparent;
+    color:var(--danger);
+    border-color:rgba(255,77,77,.35);
+  }
+  .btn.icon{width:42px;padding:0;display:grid;place-items:center}
+  .divider{height:12px}
 
-body{
-margin:0;
-padding:18px;
-background:var(--bg);
-color:var(--text);
-font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;
-}
+  /* Calendar */
+  .calhdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .calhdr b{font-size:16px}
+  .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .dow{opacity:.55;font-size:11px;text-align:center;padding:4px 0}
+  .day{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:8px;
+    min-height:56px;
+    cursor:pointer;
+    position:relative;
+  }
+  .day.sel{
+    outline:2px solid rgba(255,122,0,.55);
+    background:rgba(255,122,0,.08);
+  }
+  .num{font-weight:900;font-size:14px}
+  .dot{
+    position:absolute;right:8px;top:8px;
+    width:6px;height:6px;border-radius:999px;background:var(--accent);
+  }
+  .badges{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap}
+  .badge{
+    font-size:10px;
+    padding:2px 7px;
+    border-radius:999px;
+    background:rgba(255,122,0,.22);
+    border:1px solid rgba(255,122,0,.45);
+    color:#ffe2c8;
+    line-height:1.2;
+    white-space:nowrap;
+  }
 
-.container{max-width:880px;margin:0 auto}
-h1{margin:0 0 14px;font-size:34px;font-weight:900}
+  /* Workout list */
+  .wcard{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:12px;
+    margin-top:10px;
+    cursor:pointer;
+  }
+  .whead{display:flex;gap:10px;align-items:flex-start}
+  .wtype{font-size:16px;font-weight:900}
+  .wsub{margin-top:4px;font-size:12px;color:var(--muted);word-break:break-word}
+  .wacts{display:flex;gap:8px;align-items:center;margin-top:10px}
 
-.card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:18px;
-padding:16px;
-margin-bottom:16px;
-box-shadow:var(--shadow);
-}
+  /* Workout screen */
+  .topbar{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+  .workTitle{font-size:22px;font-weight:900;margin:0}
+  .workDate{margin-top:6px;color:var(--muted);font-size:13px}
+  .ex{
+    background:var(--card2);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:12px;
+    margin-top:10px;
+  }
+  .exhead{display:flex;gap:10px;align-items:center}
+  .exname{font-weight:900}
+  .setsline{margin-top:8px;color:var(--muted);font-size:13px;line-height:1.35}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .lbl{font-size:11px;color:rgba(255,255,255,.55);margin:0 0 6px 2px}
 
-.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.spacer{flex:1}
+  /* NEW: previous + note */
+  .prevline{
+    margin-top:6px;
+    font-size:12px;
+    color:rgba(255, 226, 200, .92);
+  }
+  .notePreview{
+    margin-top:8px;
+    font-size:12px;
+    color:rgba(255,255,255,.72);
+    white-space:pre-wrap;
+    border-left:2px solid rgba(255,122,0,.45);
+    padding-left:10px;
+  }
+  .noteArea{
+    width:100%;
+    margin-top:8px;
+    background:#1f1f22;
+    color:var(--text);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:12px;
+    padding:10px 12px;
+    min-height:70px;
+    outline:none;
+    resize:vertical;
+  }
+  .noteRow{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
 
-select{
-width:100%;
-background:var(--card2);
-color:var(--text);
-border:1px solid var(--border);
-border-radius:12px;
-padding:10px 12px;
-min-height:42px;
-outline:none;
-}
-
-.btn{
-min-height:42px;
-padding:10px 14px;
-border-radius:12px;
-border:1px solid var(--border);
-background:#2f2f33;
-color:var(--text);
-cursor:pointer;
-font-weight:500;
-}
-
-.btn.accent{
-background:var(--accent);
-border-color:transparent;
-color:#111;
-font-weight:600;
-}
-
-.btn.ghost{background:transparent}
-
-.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-
-.day{
-background:var(--card2);
-border:1px solid var(--border);
-border-radius:12px;
-padding:8px;
-min-height:56px;
-cursor:pointer;
-position:relative;
-}
-
-.day.sel{
-outline:2px solid rgba(255,122,0,.55);
-background:rgba(255,122,0,.08);
-}
-
-.num{font-weight:900;font-size:14px}
-
-.dot{
-position:absolute;
-right:8px;
-top:8px;
-width:6px;
-height:6px;
-border-radius:999px;
-background:var(--accent);
-}
-
-.ex{
-background:var(--card2);
-border:1px solid var(--border);
-border-radius:16px;
-padding:12px;
-margin-top:10px;
-}
-
-.grid2{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:10px;
-}
-
-.lbl{
-font-size:11px;
-color:rgba(255,255,255,.55);
-margin:0 0 6px 2px;
-}
+  .toast{
+    position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+    background:rgba(0,0,0,.78);
+    border:1px solid rgba(255,255,255,.14);
+    padding:10px 12px;border-radius:999px;
+    font-size:13px;opacity:0;pointer-events:none;
+    transition:opacity .15s ease;
+  }
+  .toast.show{opacity:1}
 </style>
 </head>
-
 <body>
-
 <div class="container">
-<h1>Workout Tracker</h1>
-<div id="app"></div>
+  <h1>Workout Tracker</h1>
+  <div id="app"></div>
 </div>
+<div id="toast" class="toast"></div>
 
 <script>
 (() => {
-
-const LS = {
-workouts:"wt_workouts_v3",
-exerciseDB:"wt_exerciseDB_v3",
-lastSet:"wt_lastset_v3",
-ui:"wt_ui_v3"
-};
-
-const pad=n=>String(n).padStart(2,"0");
-
-const todayISO=()=>{
-const d=new Date();
-return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
-};
-
-const load=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch{return f}};
-const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-
-let workouts=load(LS.workouts,[]);
-let exerciseDB=load(LS.exerciseDB,[]);
-let lastSetByEx=load(LS.lastSet,{});
-
-let ui=load(LS.ui,{
-screen:"calendar",
-selectedISO:todayISO(),
-monthY:new Date().getFullYear(),
-monthM:new Date().getMonth(),
-activeWorkoutId:null
-});
-
-const persist=()=>{
-save(LS.workouts,workouts);
-save(LS.exerciseDB,exerciseDB);
-save(LS.lastSet,lastSetByEx);
-save(LS.ui,ui);
-};
-
-const uid=()=>Math.random().toString(36).slice(2);
-
-const activeWorkout=()=>workouts.find(w=>w.id===ui.activeWorkoutId)||null;
-
-const getExerciseOptions=()=>exerciseDB;
-
-const addExercise=()=>{
-
-const w=activeWorkout();
-if(!w)return;
-
-const sel=document.getElementById("exerciseSelect");
-
-let name=sel.value;
-
-if(name==="__new__"){
-
-const n=prompt("Название упражнения");
-
-if(!n)return;
-
-name=n.trim();
-
-if(!exerciseDB.includes(name)){
-exerciseDB.push(name);
-}
-
-}
-
-w.exercises.unshift({name,sets:[],comment:""});
-
-persist();
-render();
-
-};
-
-const addSet=(i)=>{
-
-const w=activeWorkout();
-const ex=w.exercises[i];
-
-const weight=Number(document.getElementById("w_"+i).value);
-const reps=Number(document.getElementById("r_"+i).value);
-
-ex.sets.push({weight,reps});
-
-persist();
-render();
-
-};
-
-const renderWorkoutScreen=()=>{
-
-const w=activeWorkout();
-
-const opts=getExerciseOptions()
-.map(x=>`<option value="${x}">${x}</option>`)
-.join("");
-
-const exHtml=w.exercises.map((ex,i)=>{
-
-const setsLine=ex.sets.map(s=>s.weight+"×"+s.reps).join(" ");
-
-return `
-<div class="ex">
-
-<b>${ex.name}</b>
-
-<div>${setsLine||"нет подходов"}</div>
-
-<div class="grid2">
-
-<div>
-<div class="lbl">Вес</div>
-<select id="w_${i}">
-${[...Array(200)].map((_,x)=>`<option>${x}</option>`)}
-</select>
-</div>
-
-<div>
-<div class="lbl">Повторы</div>
-<select id="r_${i}">
-${[...Array(30)].map((_,x)=>`<option>${x+1}</option>`)}
-</select>
-</div>
-
-</div>
-
-<button class="btn accent" onclick="__addSet(${i})">+ подход</button>
-
-</div>
-`;
-
-}).join("");
-
-return`
-
-<div class="card">
-
-<button class="btn ghost" onclick="__back()">← Назад</button>
-
-<h2>${w.type}</h2>
-
-<div class="row">
-
-<select id="exerciseSelect">
-${opts}
-<option value="__new__">+ новое упражнение…</option>
-</select>
-
-<button class="btn accent" onclick="__addExercise()">Добавить</button>
-
-</div>
-
-${exHtml}
-
-</div>
-
-`;
-
-};
-
-const renderCalendarScreen=()=>{
-
-return`
-
-<div class="card">
-
-<div class="row">
-
-<select id="dayType">
-
-<option>Ноги + Плечи</option>
-<option>Спина + Трицепс</option>
-<option>Грудь + Бицепс</option>
-<option>Кардио</option>
-
-</select>
-
-<button class="btn accent" onclick="__createWorkout()">Создать тренировку</button>
-
-</div>
-
-</div>
-
-${workouts.map(w=>`
-
-<div class="card">
-
-<b>${w.type}</b>
-
-<button class="btn accent" onclick="__openWorkout('${w.id}')">Открыть</button>
-
-</div>
-
-`).join("")}
-
-`;
-
-};
-
-const createWorkout=()=>{
-
-const type=document.getElementById("dayType").value;
-
-const w={
-id:uid(),
-date:ui.selectedISO,
-type,
-exercises:[]
-};
-
-workouts.push(w);
-
-ui.activeWorkoutId=w.id;
-ui.screen="workout";
-
-persist();
-render();
-
-};
-
-const render=()=>{
-
-const app=document.getElementById("app");
-
-app.innerHTML=ui.screen==="workout"
-?renderWorkoutScreen()
-:renderCalendarScreen();
-
-window.__createWorkout=createWorkout;
-window.__openWorkout=id=>{ui.activeWorkoutId=id;ui.screen="workout";persist();render()};
-window.__back=()=>{ui.screen="calendar";persist();render()};
-window.__addExercise=addExercise;
-window.__addSet=addSet;
-
-};
-
-render();
-
+  const LS = {
+    workouts: "wt_workouts_v3",
+    exerciseDB: "wt_exerciseDB_v3",
+    lastSet: "wt_lastset_v3",
+    ui: "wt_ui_v3"
+  };
+
+  const LABELS = {
+    "Ноги + Плечи":"Н+П",
+    "Спина + Трицепс":"С+Т",
+    "Грудь + Бицепс":"Г+Б",
+    "Кардио":"Кар"
+  };
+
+  const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+  const DOW = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
+
+  const toastEl = document.getElementById("toast");
+  const toast = (t) => {
+    toastEl.textContent = t;
+    toastEl.classList.add("show");
+    setTimeout(() => toastEl.classList.remove("show"), 900);
+  };
+
+  const load = (k, fb) => {
+    try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; }
+    catch { return fb; }
+  };
+  const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+
+  // ====== FIX ДАТ (без UTC) ======
+  const pad2 = (n) => String(n).padStart(2,"0");
+  const todayISO = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+  };
+  const isoToDate = (iso) => {
+    const [y,m,d] = iso.split("-").map(Number);
+    return new Date(y, m-1, d);
+  };
+  const fmtISO = (d) => {
+    return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+  };
+  // ================================
+
+  let workouts = load(LS.workouts, []);
+  if (!Array.isArray(workouts)) workouts = [];
+  workouts = workouts.filter(w => w && w.id && w.date && w.type && Array.isArray(w.exercises));
+
+  let exerciseDB = load(LS.exerciseDB, [
+    "жим ногами","разгибание ног","сгибание ног",
+    "жим плечи","мах гантели","задняя дельта",
+    "тяга верхнего блока","тяга горизонтального блока","тяга гантели",
+    "разгибание трицепса","канат трицепс",
+    "жим штанги","жим гантелей","разводка",
+    "бицепс штанга","бицепс гантели",
+    "пресс","бег","велосипед","эллипс"
+  ]);
+  if (!Array.isArray(exerciseDB)) exerciseDB = [];
+
+  let lastSetByEx = load(LS.lastSet, {});
+  if (typeof lastSetByEx !== "object" || lastSetByEx === null) lastSetByEx = {};
+
+  let ui = load(LS.ui, {
+    screen: "calendar",         // calendar | workout
+    selectedISO: todayISO(),
+    monthY: isoToDate(todayISO()).getFullYear(),
+    monthM: isoToDate(todayISO()).getMonth(),
+    activeWorkoutId: null
+  });
+
+  const persist = () => {
+    save(LS.workouts, workouts);
+    save(LS.exerciseDB, exerciseDB);
+    save(LS.lastSet, lastSetByEx);
+    save(LS.ui, ui);
+  };
+
+  const uniq = (arr) => Array.from(new Set(arr));
+
+  const buildMonthGrid = (y, m) => {
+    const first = new Date(y, m, 1);
+    const startDow = (first.getDay() + 6) % 7; // Monday=0
+    const daysInMonth = new Date(y, m+1, 0).getDate();
+    const cells = [];
+    for (let i=0;i<startDow;i++) cells.push(null);
+    for (let d=1; d<=daysInMonth; d++) cells.push(new Date(y, m, d));
+    while (cells.length % 7 !== 0) cells.push(null);
+    return cells;
+  };
+
+  const uid = () => Math.random().toString(36).slice(2,10) + "-" + Date.now().toString(36);
+
+  const byDay = (iso) =>
+    workouts.filter(w => w.date === iso).sort((a,b) => (a.createdAt||0) - (b.createdAt||0));
+
+  const hasAny = (iso) => workouts.some(w => w.date === iso);
+
+  const activeWorkout = () => workouts.find(w => w.id === ui.activeWorkoutId) || null;
+
+  const getExerciseOptions = (type) => {
+    const sugg = {
+      "Ноги + Плечи":["жим ногами","разгибание ног","сгибание ног","жим плечи","мах гантели","задняя дельта","пресс"],
+      "Спина + Трицепс":["тяга верхнего блока","тяга горизонтального блока","тяга гантели","разгибание трицепса","канат трицепс","пресс"],
+      "Грудь + Бицепс":["жим штанги","жим гантелей","разводка","бицепс штанга","бицепс гантели","пресс"],
+      "Кардио":["бег","велосипед","эллипс"]
+    }[type] || [];
+    const rest = exerciseDB.filter(x => !sugg.includes(x));
+    return [...sugg, ...rest];
+  };
+
+  const escapeHtml = (s) => String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+  const rangeOptions = (from, to, selected) => {
+    let out = "";
+    for (let i=from; i<=to; i++){
+      out += `<option value="${i}" ${Number(i)===Number(selected)?"selected":""}>${i}</option>`;
+    }
+    return out;
+  };
+
+  // ===== NEW: нормализуем упражнения (старые записи без comment) =====
+  const normalizeWorkout = (w) => {
+    if (!w || !Array.isArray(w.exercises)) return;
+    w.exercises.forEach(ex => {
+      if (!ex) return;
+      if (!Array.isArray(ex.sets)) ex.sets = [];
+      if (typeof ex.comment !== "string") ex.comment = "";
+    });
+  };
+  workouts.forEach(normalizeWorkout);
+  // ================================================================
+
+  // ===== NEW: прошлый результат упражнения =====
+  // выбираем "лучший" сет: выше вес, при равном весе — больше повторов
+  const bestSet = (sets) => {
+    if (!Array.isArray(sets) || sets.length === 0) return null;
+    return sets.reduce((best, cur) => {
+      if (!best) return cur;
+      const bw = Number(best.weight ?? 0), cw = Number(cur.weight ?? 0);
+      const br = Number(best.reps ?? 0), cr = Number(cur.reps ?? 0);
+      if (cw > bw) return cur;
+      if (cw < bw) return best;
+      return (cr > br) ? cur : best;
+    }, null);
+  };
+
+  const getPreviousBest = (exerciseName, currentWorkoutId) => {
+    // сортируем по дате (desc), потом createdAt (desc), чтобы "последняя" была действительно последней
+    const sorted = [...workouts].sort((a,b) => {
+      if (a.date !== b.date) return (a.date > b.date) ? -1 : 1; // YYYY-MM-DD сравнивается строкой корректно
+      return (Number(b.createdAt||0) - Number(a.createdAt||0));
+    });
+
+    for (const w of sorted) {
+      if (!w || w.id === currentWorkoutId) continue;
+      if (!Array.isArray(w.exercises)) continue;
+      const ex = w.exercises.find(e => e && e.name === exerciseName && Array.isArray(e.sets) && e.sets.length);
+      if (ex) {
+        const bs = bestSet(ex.sets);
+        if (!bs) return null;
+        return { weight: Number(bs.weight), reps: Number(bs.reps), date: w.date };
+      }
+    }
+    return null;
+  };
+  // =================================================
+
+  // Actions
+  const selectDay = (iso) => { ui.selectedISO = iso; persist(); render(); };
+
+  const changeMonth = (delta) => {
+    const d = new Date(ui.monthY, ui.monthM, 1);
+    d.setMonth(d.getMonth() + delta);
+    ui.monthY = d.getFullYear();
+    ui.monthM = d.getMonth();
+    persist(); render();
+  };
+
+  const setScreen = (s) => { ui.screen = s; persist(); render(); };
+
+  const createWorkout = () => {
+    const type = document.getElementById("dayType").value;
+    const w = { id: uid(), date: ui.selectedISO, type, exercises: [], createdAt: Date.now() };
+    workouts.push(w);
+    ui.activeWorkoutId = w.id;
+    persist();
+    ui.screen = "workout";
+    persist();
+    render();
+    toast("Тренировка создана");
+  };
+
+  const deleteWorkout = (id) => {
+    const w = workouts.find(x => x.id === id);
+    if (!w) return;
+    const ok = confirm(`Удалить тренировку "${w.type}" (${w.date})?`);
+    if (!ok) return;
+    workouts = workouts.filter(x => x.id !== id);
+    if (ui.activeWorkoutId === id) ui.activeWorkoutId = null;
+    persist();
+    render();
+    toast("Удалено");
+  };
+
+  const openWorkout = (id) => { ui.activeWorkoutId = id; ui.screen = "workout"; persist(); render(); };
+
+  const addExercise = () => {
+    const w = activeWorkout();
+    if (!w) return;
+
+    const sel = document.getElementById("exerciseSelect");
+    let name = sel.value;
+
+    if (name === "__new__") {
+      const n = prompt("Название нового упражнения:");
+      if (!n) return;
+      name = n.trim();
+      if (!name) return;
+
+      if (!exerciseDB.some(e => e.toLowerCase() === name.toLowerCase())) exerciseDB.push(name);
+    }
+
+    // добавляем сверху
+    w.exercises.unshift({ name, sets: [], comment: "" });
+    if (!lastSetByEx[name]) lastSetByEx[name] = { w: 0, r: 10 };
+
+    persist(); render();
+    toast("Упражнение добавлено");
+  };
+
+  const addSet = (exIndex) => {
+    const w = activeWorkout();
+    if (!w) return;
+    const ex = w.exercises[exIndex];
+    if (!ex) return;
+
+    const weight = Number(document.getElementById(`w_${exIndex}`).value);
+    const reps = Number(document.getElementById(`r_${exIndex}`).value);
+
+    ex.sets.push({ weight, reps });
+    lastSetByEx[ex.name] = { w: weight, r: reps };
+
+    persist(); render();
+  };
+
+  const removeSet = (exIndex) => {
+    const w = activeWorkout();
+    if (!w) return;
+    const ex = w.exercises[exIndex];
+    if (!ex || ex.sets.length === 0) return;
+    const ok = confirm("Удалить последний подход?");
+    if (!ok) return;
+    ex.sets.pop();
+    persist(); render();
+  };
+
+  // ===== NEW: заметки к упражнению =====
+  const toggleNote = (exIndex) => {
+    const w = activeWorkout();
+    if (!w) return;
+    // ui: храним открыто/закрыто прямо в объекте упражнения (не влияет на данные)
+    // но чтобы не сохранять "ui-мусор" в localStorage, держим отдельную map в ui.
+    if (!ui.noteOpen) ui.noteOpen = {};
+    const key = `${w.id}:${exIndex}`;
+    ui.noteOpen[key] = !ui.noteOpen[key];
+    persist();
+    render();
+  };
+
+  const saveNote = (exIndex, value) => {
+    const w = activeWorkout();
+    if (!w) return;
+    if (!w.exercises[exIndex]) return;
+    w.exercises[exIndex].comment = String(value || "");
+    persist();
+  };
+  // ================================
+
+  // Render screens
+  const renderCalendarScreen = () => {
+    const selectedISO = ui.selectedISO;
+    const y = ui.monthY;
+    const m = ui.monthM;
+    const monthCells = buildMonthGrid(y, m);
+    const dayList = byDay(selectedISO);
+
+    return `
+      <div class="card">
+        <div class="title">Новая тренировка</div>
+        <div class="row">
+          <div style="flex:1;min-width:240px">
+            <select id="dayType">
+              <option>Ноги + Плечи</option>
+              <option>Спина + Трицепс</option>
+              <option>Грудь + Бицепс</option>
+              <option>Кардио</option>
+            </select>
+          </div>
+          <button class="btn accent" onclick="__createWorkout()">Создать</button>
+        </div>
+        <div class="muted" style="margin-top:8px">Создаётся внутри выбранного дня календаря.</div>
+      </div>
+
+      <div class="card">
+        <div class="calhdr">
+          <button class="btn ghost" onclick="__changeMonth(-1)">←</button>
+          <div class="spacer"></div>
+          <b>${MONTHS[m]} ${y}</b>
+          <div class="spacer"></div>
+          <button class="btn ghost" onclick="__changeMonth(1)">→</button>
+        </div>
+
+        <div class="calgrid" style="margin-bottom:6px">
+          ${DOW.map(d => `<div class="dow">${d}</div>`).join("")}
+        </div>
+
+        <div class="calgrid">
+          ${monthCells.map(cell => {
+            if (!cell) return `<div></div>`;
+            const iso = fmtISO(cell);
+            const sel = iso === selectedISO ? "sel" : "";
+            const dot = hasAny(iso) ? `<span class="dot"></span>` : "";
+            const marks = uniq(byDay(iso).map(w => LABELS[w.type] || w.type)).slice(0,3);
+            const badges = marks.length
+              ? `<div class="badges">${marks.map(x => `<span class="badge">${escapeHtml(x)}</span>`).join("")}</div>`
+              : `<div class="badges"></div>`;
+            return `
+              <div class="day ${sel}" onclick="__selectDay('${iso}')">
+                ${dot}
+                <div class="num">${cell.getDate()}</div>
+                ${badges}
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <div class="title" style="margin:0">Тренировки в этот день (${dayList.length})</div>
+          <div class="spacer"></div>
+          <div class="muted">${escapeHtml(selectedISO)}</div>
+        </div>
+
+        ${dayList.length ? dayList.map(w => {
+          const exNames = w.exercises.map(e => e.name);
+          const preview = exNames.length ? exNames.slice(0,4).join(" • ") + (exNames.length>4 ? ` • +${exNames.length-4}` : "") : "без упражнений";
+          return `
+            <div class="wcard" onclick="__openWorkout('${w.id}')">
+              <div class="whead">
+                <div style="flex:1">
+                  <div class="wtype">${escapeHtml(w.type)}</div>
+                  <div class="wsub">${escapeHtml(preview)}</div>
+                </div>
+                <button class="btn icon danger" title="Удалить" onclick="event.stopPropagation(); __deleteWorkout('${w.id}')">🗑</button>
+              </div>
+              <div class="wacts">
+                <button class="btn accent" onclick="event.stopPropagation(); __openWorkout('${w.id}')">Открыть</button>
+              </div>
+            </div>
+          `;
+        }).join("") : `<div class="muted" style="margin-top:10px">Нет тренировок. Создай новую выше.</div>`}
+      </div>
+    `;
+  };
+
+  const renderWorkoutScreen = () => {
+    const w = activeWorkout();
+    if (!w) { ui.screen = "calendar"; ui.activeWorkoutId = null; persist(); return renderCalendarScreen(); }
+
+    normalizeWorkout(w);
+
+    const opts = getExerciseOptions(w.type);
+    const exOptions = opts.map(x => `<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join("");
+
+    const exHtml = w.exercises.length ? w.exercises.map((ex, idx) => {
+      const last = lastSetByEx[ex.name] || { w: 0, r: 10 };
+      const setsLine = ex.sets.length ? ex.sets.map(s => `${s.weight}×${s.reps}`).join("   ") : "пока нет подходов";
+
+      const prev = getPreviousBest(ex.name, w.id);
+      const prevLine = prev
+        ? `<div class="prevline">прошлый раз (${escapeHtml(prev.date)}): <b>${prev.weight}×${prev.reps}</b></div>`
+        : `<div class="prevline">прошлый раз: —</div>`;
+
+      const noteKey = `${w.id}:${idx}`;
+      const open = !!(ui.noteOpen && ui.noteOpen[noteKey]);
+      const hasComment = (ex.comment || "").trim().length > 0;
+
+      const noteBlock = open ? `
+        <textarea class="noteArea" placeholder="Заметка (опционально)"
+          oninput="__saveNote(${idx}, this.value)">${escapeHtml(ex.comment || "")}</textarea>
+        <div class="noteRow">
+          <button class="btn ghost" onclick="__toggleNote(${idx})">Свернуть</button>
+        </div>
+      ` : `
+        ${hasComment ? `<div class="notePreview">📝 ${escapeHtml(ex.comment)}</div>` : ``}
+        <div class="noteRow">
+          <button class="btn ghost" onclick="__toggleNote(${idx})">${hasComment ? "Редактировать заметку" : "+ добавить заметку"}</button>
+        </div>
+      `;
+
+      return `
+        <div class="ex">
+          <div class="exhead">
+            <div class="exname">${escapeHtml(ex.name)}</div>
+            <div class="spacer"></div>
+            <button class="btn ghost" style="min-height:38px;padding:8px 10px" onclick="__removeSet(${idx})" ${ex.sets.length?"" : "disabled"}>− подход</button>
+            <button class="btn accent" style="min-height:38px;padding:8px 10px" onclick="__addSet(${idx})">+ подход</button>
+          </div>
+
+          ${prevLine}
+
+          <div class="setsline">${escapeHtml(setsLine)}</div>
+
+          <div class="grid2">
+            <div>
+              <div class="lbl">Вес (кг)</div>
+              <select id="w_${idx}">
+                ${rangeOptions(0, 200, last.w)}
+              </select>
+            </div>
+            <div>
+              <div class="lbl">Повторы</div>
+              <select id="r_${idx}">
+                ${rangeOptions(1, 30, last.r)}
+              </select>
+            </div>
+          </div>
+
+          ${noteBlock}
+        </div>
+      `;
+    }).join("") : `<div class="muted" style="margin-top:10px">Добавь упражнение, чтобы начать.</div>`;
+
+    return `
+      <div class="card">
+        <div class="topbar">
+          <button class="btn ghost" onclick="__back()">← Назад</button>
+          <div class="spacer"></div>
+          <button class="btn danger" onclick="__deleteWorkout('${w.id}')">Удалить тренировку</button>
+        </div>
+
+        <p class="workTitle">${escapeHtml(w.type)}</p>
+        <div class="workDate">${escapeHtml(w.date)}</div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+          <div style="flex:1;min-width:240px">
+            <select id="exerciseSelect">
+              ${exOptions}
+              <option value="__new__">+ новое упражнение…</option>
+            </select>
+          </div>
+          <button class="btn accent" onclick="__addExercise()">Добавить упражнение</button>
+        </div>
+
+        ${exHtml}
+
+        <div class="muted" style="margin-top:10px">Всё сохраняется автоматически.</div>
+      </div>
+    `;
+  };
+
+  const render = () => {
+    const app = document.getElementById("app");
+    app.innerHTML = (ui.screen === "workout") ? renderWorkoutScreen() : renderCalendarScreen();
+
+    // Handlers
+    window.__selectDay = selectDay;
+    window.__changeMonth = changeMonth;
+    window.__createWorkout = createWorkout;
+    window.__deleteWorkout = deleteWorkout;
+    window.__openWorkout = openWorkout;
+    window.__back = () => setScreen("calendar");
+    window.__addExercise = addExercise;
+    window.__addSet = addSet;
+    window.__removeSet = removeSet;
+
+    // NEW
+    window.__toggleNote = toggleNote;
+    window.__saveNote = saveNote;
+  };
+
+  // init month from selected day
+  const selD = isoToDate(ui.selectedISO);
+  ui.monthY = selD.getFullYear();
+  ui.monthM = selD.getMonth();
+
+  persist();
+  render();
 })();
 </script>
-
 </body>
 </html>
