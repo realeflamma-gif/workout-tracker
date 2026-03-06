@@ -16,7 +16,9 @@
     --danger:#ff4d4d;
     --shadow:0 10px 30px rgba(0,0,0,.35);
   }
+
   *{box-sizing:border-box}
+
   body{
     margin:0;
     padding:18px;
@@ -24,8 +26,10 @@
     color:var(--text);
     font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;
   }
+
   .container{max-width:880px;margin:0 auto}
   h1{margin:0 0 14px;font-size:34px;font-weight:900}
+
   .card{
     background:var(--card);
     border:1px solid var(--border);
@@ -34,10 +38,12 @@
     margin-bottom:16px;
     box-shadow:var(--shadow);
   }
+
   .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   .spacer{flex:1}
   .muted{color:var(--muted);font-size:13px}
   .title{font-size:18px;font-weight:900;margin:0 0 10px}
+
   select{
     width:100%;
     background:var(--card2);
@@ -48,6 +54,7 @@
     min-height:42px;
     outline:none;
   }
+
   .btn{
     min-height:42px;
     padding:10px 14px;
@@ -56,30 +63,49 @@
     background:#2f2f33;
     color:var(--text);
     cursor:pointer;
-    font-weight:500; /* НЕ жирная */
+    font-weight:500;
     user-select:none;
   }
+
   .btn:active{transform:translateY(1px)}
+
   .btn.accent{
     background:var(--accent);
     border-color:transparent;
     color:#111;
-    font-weight:600; /* аккуратно */
+    font-weight:600;
   }
+
   .btn.ghost{background:transparent}
+
   .btn.danger{
     background:transparent;
     color:var(--danger);
     border-color:rgba(255,77,77,.35);
   }
-  .btn.icon{width:42px;padding:0;display:grid;place-items:center}
+
+  .btn.icon{
+    width:42px;
+    height:42px;
+    padding:0;
+    display:grid;
+    place-items:center;
+  }
+
   .divider{height:12px}
 
-  /* Calendar */
   .calhdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
   .calhdr b{font-size:16px}
+
   .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-  .dow{opacity:.55;font-size:11px;text-align:center;padding:4px 0}
+
+  .dow{
+    opacity:.55;
+    font-size:11px;
+    text-align:center;
+    padding:4px 0;
+  }
+
   .day{
     background:var(--card2);
     border:1px solid var(--border);
@@ -89,16 +115,31 @@
     cursor:pointer;
     position:relative;
   }
+
   .day.sel{
     outline:2px solid rgba(255,122,0,.55);
     background:rgba(255,122,0,.08);
   }
+
   .num{font-weight:900;font-size:14px}
+
   .dot{
-    position:absolute;right:8px;top:8px;
-    width:6px;height:6px;border-radius:999px;background:var(--accent);
+    position:absolute;
+    right:8px;
+    top:8px;
+    width:6px;
+    height:6px;
+    border-radius:999px;
+    background:var(--accent);
   }
-  .badges{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap}
+
+  .badges{
+    margin-top:6px;
+    display:flex;
+    gap:4px;
+    flex-wrap:wrap;
+  }
+
   .badge{
     font-size:10px;
     padding:2px 7px;
@@ -110,24 +151,23 @@
     white-space:nowrap;
   }
 
-  /* Workout list */
   .wcard{
     background:var(--card2);
     border:1px solid var(--border);
     border-radius:16px;
     padding:12px;
     margin-top:10px;
-    cursor:pointer;
   }
+
   .whead{display:flex;gap:10px;align-items:flex-start}
   .wtype{font-size:16px;font-weight:900}
   .wsub{margin-top:4px;font-size:12px;color:var(--muted);word-break:break-word}
   .wacts{display:flex;gap:8px;align-items:center;margin-top:10px}
 
-  /* Workout screen */
   .topbar{display:flex;gap:10px;align-items:center;margin-bottom:10px}
   .workTitle{font-size:22px;font-weight:900;margin:0}
   .workDate{margin-top:6px;color:var(--muted);font-size:13px}
+
   .ex{
     background:var(--card2);
     border:1px solid var(--border);
@@ -135,18 +175,44 @@
     padding:12px;
     margin-top:10px;
   }
+
   .exhead{display:flex;gap:10px;align-items:center}
   .exname{font-weight:900}
-  .setsline{margin-top:8px;color:var(--muted);font-size:13px;line-height:1.35}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-  .lbl{font-size:11px;color:rgba(255,255,255,.55);margin:0 0 6px 2px}
 
-  /* NEW: previous + note */
+  .setsline{
+    margin-top:8px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.35;
+  }
+
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:10px;
+  }
+
+  .lbl{
+    font-size:11px;
+    color:rgba(255,255,255,.55);
+    margin:0 0 6px 2px;
+  }
+
   .prevline{
     margin-top:6px;
     font-size:12px;
-    color:rgba(255, 226, 200, .92);
+    color:rgba(255,226,200,.92);
   }
+
+  .actions{
+    display:flex;
+    gap:14px;
+    align-items:center;
+    margin-top:10px;
+    flex-wrap:wrap;
+  }
+
   .notePreview{
     margin-top:8px;
     font-size:12px;
@@ -155,6 +221,7 @@
     border-left:2px solid rgba(255,122,0,.45);
     padding-left:10px;
   }
+
   .noteArea{
     width:100%;
     margin-top:8px;
@@ -167,16 +234,31 @@
     outline:none;
     resize:vertical;
   }
-  .noteRow{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+
+  .noteRow{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-top:8px;
+    flex-wrap:wrap;
+  }
 
   .toast{
-    position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+    position:fixed;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
     background:rgba(0,0,0,.78);
     border:1px solid rgba(255,255,255,.14);
-    padding:10px 12px;border-radius:999px;
-    font-size:13px;opacity:0;pointer-events:none;
+    padding:10px 12px;
+    border-radius:999px;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
     transition:opacity .15s ease;
+    z-index:999;
   }
+
   .toast.show{opacity:1}
 </style>
 </head>
@@ -189,12 +271,8 @@
 
 <script>
 (() => {
-  const LS = {
-    workouts: "wt_workouts_v3",
-    exerciseDB: "wt_exerciseDB_v3",
-    lastSet: "wt_lastset_v3",
-    ui: "wt_ui_v3"
-  };
+  const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
+  const DOW = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
 
   const LABELS = {
     "Ноги + Плечи":"Н+П",
@@ -203,8 +281,19 @@
     "Кардио":"Кар"
   };
 
-  const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
-  const DOW = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
+  const STORAGE_KEYS = {
+    workouts: ["wt_workouts_v10","wt_workouts_v9","wt_workouts_v8","wt_workouts_v3","wt_workouts_final"],
+    exerciseDB: ["wt_exerciseDB_v10","wt_exerciseDB_v9","wt_exerciseDB_v8","wt_exerciseDB_v7","wt_exerciseDB_v6","wt_exerciseDB_v5","wt_exerciseDB_v4","wt_exerciseDB_v3"],
+    lastSet: ["wt_lastset_v10","wt_lastset_v3","wt_lastset_v2","wt_lastset_v1","wt_lastset_final"],
+    ui: ["wt_ui_v10","wt_ui_v5","wt_ui_v4","wt_ui_v3","wt_ui_final"]
+  };
+
+  const SAVE_KEYS = {
+    workouts:"wt_workouts_v10",
+    exerciseDB:"wt_exerciseDB_v10",
+    lastSet:"wt_lastset_v10",
+    ui:"wt_ui_v10"
+  };
 
   const toastEl = document.getElementById("toast");
   const toast = (t) => {
@@ -213,223 +302,322 @@
     setTimeout(() => toastEl.classList.remove("show"), 900);
   };
 
-  const load = (k, fb) => {
-    try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; }
-    catch { return fb; }
-  };
-  const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+  function loadFirst(keys, fallback){
+    for(const k of keys){
+      try{
+        const raw = localStorage.getItem(k);
+        if(raw){
+          return JSON.parse(raw);
+        }
+      }catch{}
+    }
+    return fallback;
+  }
 
-  // ====== FIX ДАТ (без UTC) ======
-  const pad2 = (n) => String(n).padStart(2,"0");
-  const todayISO = () => {
+  function save(key, value){
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  const pad2 = (n) => String(n).padStart(2, "0");
+
+  function todayISO(){
     const d = new Date();
     return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
-  };
-  const isoToDate = (iso) => {
-    const [y,m,d] = iso.split("-").map(Number);
+  }
+
+  function isoToDate(iso){
+    const [y,m,d] = String(iso).split("-").map(Number);
     return new Date(y, m-1, d);
-  };
-  const fmtISO = (d) => {
+  }
+
+  function fmtISO(d){
     return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
-  };
-  // ================================
+  }
 
-  let workouts = load(LS.workouts, []);
-  if (!Array.isArray(workouts)) workouts = [];
-  workouts = workouts.filter(w => w && w.id && w.date && w.type && Array.isArray(w.exercises));
+  let workouts = loadFirst(STORAGE_KEYS.workouts, []);
+  if(!Array.isArray(workouts)) workouts = [];
 
-  let exerciseDB = load(LS.exerciseDB, [
-    "жим ногами","разгибание ног","сгибание ног",
-    "жим плечи","мах гантели","задняя дельта",
-    "тяга верхнего блока","тяга горизонтального блока","тяга гантели",
-    "разгибание трицепса","канат трицепс",
-    "жим штанги","жим гантелей","разводка",
-    "бицепс штанга","бицепс гантели",
-    "пресс","бег","велосипед","эллипс"
-  ]);
-  if (!Array.isArray(exerciseDB)) exerciseDB = [];
+  let exerciseDB = loadFirst(STORAGE_KEYS.exerciseDB, { global: [] });
+  if(typeof exerciseDB !== "object" || exerciseDB === null || Array.isArray(exerciseDB)){
+    exerciseDB = { global: [] };
+  }
+  if(!Array.isArray(exerciseDB.global)) exerciseDB.global = [];
 
-  let lastSetByEx = load(LS.lastSet, {});
-  if (typeof lastSetByEx !== "object" || lastSetByEx === null) lastSetByEx = {};
+  let lastSetByEx = loadFirst(STORAGE_KEYS.lastSet, {});
+  if(typeof lastSetByEx !== "object" || lastSetByEx === null || Array.isArray(lastSetByEx)){
+    lastSetByEx = {};
+  }
 
-  let ui = load(LS.ui, {
-    screen: "calendar",         // calendar | workout
+  let ui = loadFirst(STORAGE_KEYS.ui, {
+    screen: "calendar",
     selectedISO: todayISO(),
     monthY: isoToDate(todayISO()).getFullYear(),
     monthM: isoToDate(todayISO()).getMonth(),
-    activeWorkoutId: null
+    activeWorkoutId: null,
+    noteOpen: {}
   });
 
-  const persist = () => {
-    save(LS.workouts, workouts);
-    save(LS.exerciseDB, exerciseDB);
-    save(LS.lastSet, lastSetByEx);
-    save(LS.ui, ui);
-  };
+  if(!ui || typeof ui !== "object") ui = {};
+  if(!ui.screen) ui.screen = "calendar";
+  if(!ui.selectedISO) ui.selectedISO = todayISO();
+  if(typeof ui.monthY !== "number" || typeof ui.monthM !== "number"){
+    const d = isoToDate(ui.selectedISO);
+    ui.monthY = d.getFullYear();
+    ui.monthM = d.getMonth();
+  }
+  if(!ui.noteOpen || typeof ui.noteOpen !== "object") ui.noteOpen = {};
+
+  function persist(){
+    save(SAVE_KEYS.workouts, workouts);
+    save(SAVE_KEYS.exerciseDB, exerciseDB);
+    save(SAVE_KEYS.lastSet, lastSetByEx);
+    save(SAVE_KEYS.ui, ui);
+  }
 
   const uniq = (arr) => Array.from(new Set(arr));
-
-  const buildMonthGrid = (y, m) => {
-    const first = new Date(y, m, 1);
-    const startDow = (first.getDay() + 6) % 7; // Monday=0
-    const daysInMonth = new Date(y, m+1, 0).getDate();
-    const cells = [];
-    for (let i=0;i<startDow;i++) cells.push(null);
-    for (let d=1; d<=daysInMonth; d++) cells.push(new Date(y, m, d));
-    while (cells.length % 7 !== 0) cells.push(null);
-    return cells;
-  };
-
   const uid = () => Math.random().toString(36).slice(2,10) + "-" + Date.now().toString(36);
 
-  const byDay = (iso) =>
-    workouts.filter(w => w.date === iso).sort((a,b) => (a.createdAt||0) - (b.createdAt||0));
+  function normalizeExercise(ex){
+    if(!ex || typeof ex !== "object") return { name:"", sets:[], comment:"" };
+    if(!Array.isArray(ex.sets)) ex.sets = [];
+    if(typeof ex.comment !== "string") ex.comment = "";
+    return ex;
+  }
 
-  const hasAny = (iso) => workouts.some(w => w.date === iso);
+  function normalizeWorkout(w){
+    if(!w || typeof w !== "object") return null;
+    if(!w.id) w.id = uid();
+    if(!w.date) w.date = todayISO();
+    if(!w.type) w.type = "Ноги + Плечи";
+    if(!Array.isArray(w.exercises)) w.exercises = [];
+    w.exercises = w.exercises.map(normalizeExercise);
+    if(typeof w.createdAt !== "number") w.createdAt = Date.now();
+    return w;
+  }
 
-  const activeWorkout = () => workouts.find(w => w.id === ui.activeWorkoutId) || null;
+  workouts = workouts.map(normalizeWorkout).filter(Boolean);
 
-  const getExerciseOptions = (type) => {
-    const sugg = {
-      "Ноги + Плечи":["жим ногами","разгибание ног","сгибание ног","жим плечи","мах гантели","задняя дельта","пресс"],
-      "Спина + Трицепс":["тяга верхнего блока","тяга горизонтального блока","тяга гантели","разгибание трицепса","канат трицепс","пресс"],
-      "Грудь + Бицепс":["жим штанги","жим гантелей","разводка","бицепс штанга","бицепс гантели","пресс"],
-      "Кардио":["бег","велосипед","эллипс"]
-    }[type] || [];
-    const rest = exerciseDB.filter(x => !sugg.includes(x));
-    return [...sugg, ...rest];
-  };
+  function buildMonthGrid(y, m){
+    const first = new Date(y, m, 1);
+    const startDow = (first.getDay() + 6) % 7;
+    const daysInMonth = new Date(y, m+1, 0).getDate();
+    const cells = [];
+    for(let i=0;i<startDow;i++) cells.push(null);
+    for(let d=1; d<=daysInMonth; d++) cells.push(new Date(y, m, d));
+    while(cells.length % 7 !== 0) cells.push(null);
+    return cells;
+  }
 
-  const escapeHtml = (s) => String(s)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  function byDay(iso){
+    return workouts
+      .filter(w => w.date === iso)
+      .sort((a,b) => Number(a.createdAt||0) - Number(b.createdAt||0));
+  }
 
-  const rangeOptions = (from, to, selected) => {
-    let out = "";
-    for (let i=from; i<=to; i++){
-      out += `<option value="${i}" ${Number(i)===Number(selected)?"selected":""}>${i}</option>`;
-    }
-    return out;
-  };
+  function hasAny(iso){
+    return workouts.some(w => w.date === iso);
+  }
 
-  // ===== NEW: нормализуем упражнения (старые записи без comment) =====
-  const normalizeWorkout = (w) => {
-    if (!w || !Array.isArray(w.exercises)) return;
-    w.exercises.forEach(ex => {
-      if (!ex) return;
-      if (!Array.isArray(ex.sets)) ex.sets = [];
-      if (typeof ex.comment !== "string") ex.comment = "";
-    });
-  };
-  workouts.forEach(normalizeWorkout);
-  // ================================================================
+  function activeWorkout(){
+    return workouts.find(w => w.id === ui.activeWorkoutId) || null;
+  }
 
-  // ===== NEW: прошлый результат упражнения =====
-  // выбираем "лучший" сет: выше вес, при равном весе — больше повторов
-  const bestSet = (sets) => {
-    if (!Array.isArray(sets) || sets.length === 0) return null;
+  function getExerciseOptions(type){
+    const globals = Array.isArray(exerciseDB.global) ? exerciseDB.global : [];
+    const local = Array.isArray(exerciseDB[type]) ? exerciseDB[type] : [];
+    return uniq([...globals, ...local]);
+  }
+
+  function bestSet(sets){
+    if(!Array.isArray(sets) || sets.length === 0) return null;
     return sets.reduce((best, cur) => {
-      if (!best) return cur;
+      if(!best) return cur;
       const bw = Number(best.weight ?? 0), cw = Number(cur.weight ?? 0);
       const br = Number(best.reps ?? 0), cr = Number(cur.reps ?? 0);
-      if (cw > bw) return cur;
-      if (cw < bw) return best;
-      return (cr > br) ? cur : best;
+      if(cw > bw) return cur;
+      if(cw < bw) return best;
+      return cr > br ? cur : best;
     }, null);
-  };
+  }
 
-  const getPreviousBest = (exerciseName, currentWorkoutId) => {
-    // сортируем по дате (desc), потом createdAt (desc), чтобы "последняя" была действительно последней
-    const sorted = [...workouts].sort((a,b) => {
-      if (a.date !== b.date) return (a.date > b.date) ? -1 : 1; // YYYY-MM-DD сравнивается строкой корректно
-      return (Number(b.createdAt||0) - Number(a.createdAt||0));
-    });
+  function getPreviousResult(exerciseName, currentWorkoutId){
+    const current = workouts.find(w => w.id === currentWorkoutId);
+    if(!current) return null;
 
-    for (const w of sorted) {
-      if (!w || w.id === currentWorkoutId) continue;
-      if (!Array.isArray(w.exercises)) continue;
+    const candidates = workouts
+      .filter(w => w.id !== currentWorkoutId)
+      .filter(w => String(w.date) < String(current.date) || (String(w.date) === String(current.date) && Number(w.createdAt||0) < Number(current.createdAt||0)))
+      .sort((a,b) => {
+        if(a.date !== b.date) return a.date < b.date ? 1 : -1;
+        return Number(b.createdAt||0) - Number(a.createdAt||0);
+      });
+
+    for(const w of candidates){
       const ex = w.exercises.find(e => e && e.name === exerciseName && Array.isArray(e.sets) && e.sets.length);
-      if (ex) {
+      if(ex){
         const bs = bestSet(ex.sets);
-        if (!bs) return null;
-        return { weight: Number(bs.weight), reps: Number(bs.reps), date: w.date };
+        if(bs) return `${Number(bs.weight)}×${Number(bs.reps)}`;
       }
     }
+
     return null;
-  };
-  // =================================================
+  }
 
-  // Actions
-  const selectDay = (iso) => { ui.selectedISO = iso; persist(); render(); };
+  function escapeHtml(s){
+    return String(s)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
 
-  const changeMonth = (delta) => {
+  function rangeOptions(from, to, selected){
+    let out = "";
+    for(let i=from;i<=to;i++){
+      out += `<option value="${i}" ${Number(i)===Number(selected) ? "selected" : ""}>${i}</option>`;
+    }
+    return out;
+  }
+
+  function selectDay(iso){
+    ui.selectedISO = iso;
+    persist();
+    render();
+  }
+
+  function changeMonth(delta){
     const d = new Date(ui.monthY, ui.monthM, 1);
     d.setMonth(d.getMonth() + delta);
     ui.monthY = d.getFullYear();
     ui.monthM = d.getMonth();
-    persist(); render();
-  };
+    persist();
+    render();
+  }
 
-  const setScreen = (s) => { ui.screen = s; persist(); render(); };
+  function setScreen(screen){
+    ui.screen = screen;
+    persist();
+    render();
+  }
 
-  const createWorkout = () => {
+  function createWorkout(){
     const type = document.getElementById("dayType").value;
-    const w = { id: uid(), date: ui.selectedISO, type, exercises: [], createdAt: Date.now() };
+    const w = {
+      id: uid(),
+      date: ui.selectedISO,
+      type,
+      exercises: [],
+      createdAt: Date.now()
+    };
     workouts.push(w);
     ui.activeWorkoutId = w.id;
-    persist();
     ui.screen = "workout";
     persist();
     render();
     toast("Тренировка создана");
-  };
+  }
 
-  const deleteWorkout = (id) => {
+  function deleteWorkout(id){
     const w = workouts.find(x => x.id === id);
-    if (!w) return;
-    const ok = confirm(`Удалить тренировку "${w.type}" (${w.date})?`);
-    if (!ok) return;
+    if(!w) return;
+    if(!confirm(`Удалить тренировку "${w.type}" (${w.date})?`)) return;
+
     workouts = workouts.filter(x => x.id !== id);
-    if (ui.activeWorkoutId === id) ui.activeWorkoutId = null;
+
+    Object.keys(ui.noteOpen || {}).forEach(key => {
+      if(key.startsWith(id + ":")) delete ui.noteOpen[key];
+    });
+
+    if(ui.activeWorkoutId === id){
+      ui.activeWorkoutId = null;
+      ui.screen = "calendar";
+    }
+
     persist();
     render();
-    toast("Удалено");
-  };
+    toast("Тренировка удалена");
+  }
 
-  const openWorkout = (id) => { ui.activeWorkoutId = id; ui.screen = "workout"; persist(); render(); };
+  function openWorkout(id){
+    ui.activeWorkoutId = id;
+    ui.screen = "workout";
+    persist();
+    render();
+  }
 
-  const addExercise = () => {
+  function addExercise(){
     const w = activeWorkout();
-    if (!w) return;
+    if(!w) return;
 
     const sel = document.getElementById("exerciseSelect");
     let name = sel.value;
 
-    if (name === "__new__") {
+    if(name === "__new__"){
       const n = prompt("Название нового упражнения:");
-      if (!n) return;
+      if(!n) return;
       name = n.trim();
-      if (!name) return;
+      if(!name) return;
 
-      if (!exerciseDB.some(e => e.toLowerCase() === name.toLowerCase())) exerciseDB.push(name);
+      const makeGlobal = confirm("Сделать упражнение сквозным для всех тренировок?");
+      if(makeGlobal){
+        if(!exerciseDB.global) exerciseDB.global = [];
+        if(!exerciseDB.global.some(e => e.toLowerCase() === name.toLowerCase())){
+          exerciseDB.global.push(name);
+        }
+      }else{
+        if(!exerciseDB[w.type]) exerciseDB[w.type] = [];
+        if(!exerciseDB[w.type].some(e => e.toLowerCase() === name.toLowerCase())){
+          exerciseDB[w.type].push(name);
+        }
+      }
     }
 
-    // добавляем сверху
-    w.exercises.unshift({ name, sets: [], comment: "" });
-    if (!lastSetByEx[name]) lastSetByEx[name] = { w: 0, r: 10 };
+    w.exercises.unshift({
+      name,
+      sets: [],
+      comment: ""
+    });
 
-    persist(); render();
+    if(!lastSetByEx[name]) lastSetByEx[name] = { w: 0, r: 10 };
+
+    persist();
+    render();
     toast("Упражнение добавлено");
-  };
+  }
 
-  const addSet = (exIndex) => {
+  function removeExercise(exIndex){
     const w = activeWorkout();
-    if (!w) return;
+    if(!w) return;
     const ex = w.exercises[exIndex];
-    if (!ex) return;
+    if(!ex) return;
+    if(!confirm(`Удалить упражнение "${ex.name}"?`)) return;
+
+    w.exercises.splice(exIndex, 1);
+
+    const nextNoteOpen = {};
+    Object.keys(ui.noteOpen || {}).forEach(key => {
+      const prefix = `${w.id}:`;
+      if(!key.startsWith(prefix)){
+        nextNoteOpen[key] = ui.noteOpen[key];
+        return;
+      }
+      const idx = Number(key.slice(prefix.length));
+      if(idx < exIndex) nextNoteOpen[key] = ui.noteOpen[key];
+      if(idx > exIndex) nextNoteOpen[`${w.id}:${idx-1}`] = ui.noteOpen[key];
+    });
+    ui.noteOpen = nextNoteOpen;
+
+    persist();
+    render();
+    toast("Упражнение удалено");
+  }
+
+  function addSet(exIndex){
+    const w = activeWorkout();
+    if(!w) return;
+    const ex = w.exercises[exIndex];
+    if(!ex) return;
 
     const weight = Number(document.getElementById(`w_${exIndex}`).value);
     const reps = Number(document.getElementById(`r_${exIndex}`).value);
@@ -437,44 +625,39 @@
     ex.sets.push({ weight, reps });
     lastSetByEx[ex.name] = { w: weight, r: reps };
 
-    persist(); render();
-  };
+    persist();
+    render();
+  }
 
-  const removeSet = (exIndex) => {
+  function removeSet(exIndex){
     const w = activeWorkout();
-    if (!w) return;
+    if(!w) return;
     const ex = w.exercises[exIndex];
-    if (!ex || ex.sets.length === 0) return;
-    const ok = confirm("Удалить последний подход?");
-    if (!ok) return;
-    ex.sets.pop();
-    persist(); render();
-  };
+    if(!ex || ex.sets.length === 0) return;
+    if(!confirm("Удалить последний подход?")) return;
 
-  // ===== NEW: заметки к упражнению =====
-  const toggleNote = (exIndex) => {
+    ex.sets.pop();
+    persist();
+    render();
+  }
+
+  function toggleNote(exIndex){
     const w = activeWorkout();
-    if (!w) return;
-    // ui: храним открыто/закрыто прямо в объекте упражнения (не влияет на данные)
-    // но чтобы не сохранять "ui-мусор" в localStorage, держим отдельную map в ui.
-    if (!ui.noteOpen) ui.noteOpen = {};
+    if(!w) return;
     const key = `${w.id}:${exIndex}`;
     ui.noteOpen[key] = !ui.noteOpen[key];
     persist();
     render();
-  };
+  }
 
-  const saveNote = (exIndex, value) => {
+  function saveNote(exIndex, value){
     const w = activeWorkout();
-    if (!w) return;
-    if (!w.exercises[exIndex]) return;
+    if(!w || !w.exercises[exIndex]) return;
     w.exercises[exIndex].comment = String(value || "");
     persist();
-  };
-  // ================================
+  }
 
-  // Render screens
-  const renderCalendarScreen = () => {
+  function renderCalendarScreen(){
     const selectedISO = ui.selectedISO;
     const y = ui.monthY;
     const m = ui.monthM;
@@ -513,7 +696,7 @@
 
         <div class="calgrid">
           ${monthCells.map(cell => {
-            if (!cell) return `<div></div>`;
+            if(!cell) return `<div></div>`;
             const iso = fmtISO(cell);
             const sel = iso === selectedISO ? "sel" : "";
             const dot = hasAny(iso) ? `<span class="dot"></span>` : "";
@@ -521,6 +704,7 @@
             const badges = marks.length
               ? `<div class="badges">${marks.map(x => `<span class="badge">${escapeHtml(x)}</span>`).join("")}</div>`
               : `<div class="badges"></div>`;
+
             return `
               <div class="day ${sel}" onclick="__selectDay('${iso}')">
                 ${dot}
@@ -541,42 +725,50 @@
 
         ${dayList.length ? dayList.map(w => {
           const exNames = w.exercises.map(e => e.name);
-          const preview = exNames.length ? exNames.slice(0,4).join(" • ") + (exNames.length>4 ? ` • +${exNames.length-4}` : "") : "без упражнений";
+          const preview = exNames.length
+            ? exNames.slice(0,4).join(" • ") + (exNames.length > 4 ? ` • +${exNames.length-4}` : "")
+            : "без упражнений";
+
           return `
-            <div class="wcard" onclick="__openWorkout('${w.id}')">
+            <div class="wcard">
               <div class="whead">
-                <div style="flex:1">
+                <div style="flex:1;cursor:pointer" onclick="__openWorkout('${w.id}')">
                   <div class="wtype">${escapeHtml(w.type)}</div>
                   <div class="wsub">${escapeHtml(preview)}</div>
                 </div>
-                <button class="btn icon danger" title="Удалить" onclick="event.stopPropagation(); __deleteWorkout('${w.id}')">🗑</button>
+                <button class="btn icon danger" title="Удалить" onclick="__deleteWorkout('${w.id}')">🗑</button>
               </div>
               <div class="wacts">
-                <button class="btn accent" onclick="event.stopPropagation(); __openWorkout('${w.id}')">Открыть</button>
+                <button class="btn accent" onclick="__openWorkout('${w.id}')">Открыть</button>
               </div>
             </div>
           `;
         }).join("") : `<div class="muted" style="margin-top:10px">Нет тренировок. Создай новую выше.</div>`}
       </div>
     `;
-  };
+  }
 
-  const renderWorkoutScreen = () => {
+  function renderWorkoutScreen(){
     const w = activeWorkout();
-    if (!w) { ui.screen = "calendar"; ui.activeWorkoutId = null; persist(); return renderCalendarScreen(); }
-
-    normalizeWorkout(w);
+    if(!w){
+      ui.screen = "calendar";
+      ui.activeWorkoutId = null;
+      persist();
+      return renderCalendarScreen();
+    }
 
     const opts = getExerciseOptions(w.type);
     const exOptions = opts.map(x => `<option value="${escapeHtml(x)}">${escapeHtml(x)}</option>`).join("");
 
     const exHtml = w.exercises.length ? w.exercises.map((ex, idx) => {
       const last = lastSetByEx[ex.name] || { w: 0, r: 10 };
-      const setsLine = ex.sets.length ? ex.sets.map(s => `${s.weight}×${s.reps}`).join("   ") : "пока нет подходов";
+      const setsLine = ex.sets.length
+        ? ex.sets.map(s => `${s.weight}×${s.reps}`).join("   ")
+        : "пока нет подходов";
 
-      const prev = getPreviousBest(ex.name, w.id);
+      const prev = getPreviousResult(ex.name, w.id);
       const prevLine = prev
-        ? `<div class="prevline">прошлый раз (${escapeHtml(prev.date)}): <b>${prev.weight}×${prev.reps}</b></div>`
+        ? `<div class="prevline">прошлый раз: <b>${escapeHtml(prev)}</b></div>`
         : `<div class="prevline">прошлый раз: —</div>`;
 
       const noteKey = `${w.id}:${idx}`;
@@ -584,8 +776,7 @@
       const hasComment = (ex.comment || "").trim().length > 0;
 
       const noteBlock = open ? `
-        <textarea class="noteArea" placeholder="Заметка (опционально)"
-          oninput="__saveNote(${idx}, this.value)">${escapeHtml(ex.comment || "")}</textarea>
+        <textarea class="noteArea" placeholder="Заметка (опционально)" oninput="__saveNote(${idx}, this.value)">${escapeHtml(ex.comment || "")}</textarea>
         <div class="noteRow">
           <button class="btn ghost" onclick="__toggleNote(${idx})">Свернуть</button>
         </div>
@@ -601,8 +792,7 @@
           <div class="exhead">
             <div class="exname">${escapeHtml(ex.name)}</div>
             <div class="spacer"></div>
-            <button class="btn ghost" style="min-height:38px;padding:8px 10px" onclick="__removeSet(${idx})" ${ex.sets.length?"" : "disabled"}>− подход</button>
-            <button class="btn accent" style="min-height:38px;padding:8px 10px" onclick="__addSet(${idx})">+ подход</button>
+            <button class="btn danger" style="min-height:38px;padding:8px 10px" onclick="__removeExercise(${idx})">Удалить</button>
           </div>
 
           ${prevLine}
@@ -622,6 +812,11 @@
                 ${rangeOptions(1, 30, last.r)}
               </select>
             </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn ghost" style="min-height:38px;padding:8px 10px" onclick="__removeSet(${idx})" ${ex.sets.length ? "" : "disabled"}>− подход</button>
+            <button class="btn accent" style="min-height:38px;padding:8px 10px" onclick="__addSet(${idx})">+ подход</button>
           </div>
 
           ${noteBlock}
@@ -657,13 +852,12 @@
         <div class="muted" style="margin-top:10px">Всё сохраняется автоматически.</div>
       </div>
     `;
-  };
+  }
 
-  const render = () => {
+  function render(){
     const app = document.getElementById("app");
-    app.innerHTML = (ui.screen === "workout") ? renderWorkoutScreen() : renderCalendarScreen();
+    app.innerHTML = ui.screen === "workout" ? renderWorkoutScreen() : renderCalendarScreen();
 
-    // Handlers
     window.__selectDay = selectDay;
     window.__changeMonth = changeMonth;
     window.__createWorkout = createWorkout;
@@ -671,15 +865,13 @@
     window.__openWorkout = openWorkout;
     window.__back = () => setScreen("calendar");
     window.__addExercise = addExercise;
+    window.__removeExercise = removeExercise;
     window.__addSet = addSet;
     window.__removeSet = removeSet;
-
-    // NEW
     window.__toggleNote = toggleNote;
     window.__saveNote = saveNote;
-  };
+  }
 
-  // init month from selected day
   const selD = isoToDate(ui.selectedISO);
   ui.monthY = selD.getFullYear();
   ui.monthM = selD.getMonth();
